@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir *)",
+      "Bash(bundle *)",
+      "Bash(ruby *)",
+      "Bash(chmod *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(touch *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(git *)",
+      "Bash(echo *)",
+      "Bash(cd *)",
+      "Bash(which *)",
+      "Bash(pwd)",
+      "Bash(gem *)",
+      "Bash(env *)"
+    ],
+    "deny": [
+      "Bash(rm *)",
+      "Bash(rmdir *)"
+    ]
+  }
+}

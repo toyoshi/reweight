@@ -1,0 +1,13 @@
+feeds:
+  - name: "NHKニュース"
+    url: "https://www.nhk.or.jp/rss/news/cat0.xml"
+  - name: "朝日新聞デジタル"
+    url: "https://www.asahi.com/rss/asahi/newsheadlines.rdf"
+  - name: "日経新聞"
+    url: "https://assets.wor.jp/rss/rdf/nikkei/news.rdf"
+  - name: "はてなブックマーク - 世の中"
+    url: "https://b.hatena.ne.jp/hotentry/social.rss"
+  - name: "はてなブックマーク - 政治と経済"
+    url: "https://b.hatena.ne.jp/hotentry/economics.rss"
+  - name: "はてなブックマーク - 学び"
+    url: "https://b.hatena.ne.jp/hotentry/knowledge.rss"
