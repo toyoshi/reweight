@@ -18,18 +18,17 @@ if articles.empty?
   exit 1
 end
 
-# Step 2: 元気がでる記事判定
-puts "## Step 2: 元気がでる記事判定"
+# Step 2: 元気がでる記事判定（スクリーニング → バッチスコアリング+要約）
+puts "## Step 2: 元気がでる記事判定 + 要約"
 judge = Reweight::ProgressJudge.new
 judge.judge_all(articles)
 top_articles = judge.select_top(articles, count: 10)
-puts ""
 puts "Top 10:"
 top_articles.each { |a| puts "  #{a.progress_score}pt - #{a.title}" }
 puts ""
 
-# Step 3: 要約生成
-puts "## Step 3: 要約生成"
+# Step 3: 要約フォールバック（バッチで要約が取得できなかった記事のみ）
+puts "## Step 3: 要約フォールバック"
 summarizer = Reweight::Summarizer.new
 summarizer.summarize_all(top_articles)
 puts ""

@@ -42,8 +42,15 @@ module Reweight
     end
 
     def summarize_all(articles)
-      articles.each_with_index do |article, i|
-        puts "Summarizing (#{i + 1}/#{articles.size}): #{article.title}"
+      pending = articles.select { |a| a.ai_summary.to_s.strip.empty? }
+      if pending.empty?
+        puts "All articles already have summaries, skipping."
+        return articles
+      end
+
+      puts "#{pending.size} article(s) need summary (fallback):"
+      pending.each_with_index do |article, i|
+        puts "  Summarizing (#{i + 1}/#{pending.size}): #{article.title}"
         summarize(article)
       end
       articles
