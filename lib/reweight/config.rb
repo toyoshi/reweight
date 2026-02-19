@@ -16,5 +16,15 @@ module Reweight
       raise "OPENAI_API_KEY is not set. Create a .env file based on .env.example" if key.nil? || key.empty?
       key
     end
+
+    def self.mailerlite_api_token
+      token = ENV["MAILERLITE_API_TOKEN"]
+      (token.nil? || token.empty?) ? nil : token
+    end
+
+    def self.mailerlite_group_id
+      gid = ENV["MAILERLITE_GROUP_ID"]
+      (gid.nil? || gid.empty?) ? nil : gid
+    end
   end
 end

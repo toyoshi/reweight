@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../lib/reweight"
+
+sender = Reweight::MailSender.new
+if sender.configured?
+  sender.send_today
+else
+  puts "MAILERLITE_API_TOKEN or MAILERLITE_GROUP_ID not set. Skipping."
+end
