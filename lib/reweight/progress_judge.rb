@@ -70,8 +70,13 @@ module Reweight
       - 「元気がでる」という観点を意識する
       - 事実ベースで、扇情的な表現は避ける
 
-      各記事について、スコア(0〜100)・判定理由(1文)・要約(2〜3文)をJSON形式で返してください:
-      {"results": [{"index": 1, "score": 85, "reason": "判定理由", "summary": "要約文"}, ...]}
+      ## カテゴリ分類
+      各記事に短いカテゴリ名（5〜15文字）をつけてください。
+      同じ出来事・話題を扱う記事には同じカテゴリ名をつけてください。
+      例: 「深田茉莉スノボ金メダル」「iPS細胞臨床研究」「CS50日本語化」
+
+      各記事について、スコア(0〜100)・判定理由(1文)・要約(2〜3文)・カテゴリをJSON形式で返してください:
+      {"results": [{"index": 1, "score": 85, "reason": "判定理由", "summary": "要約文", "category": "カテゴリ名"}, ...]}
     PROMPT
 
     BATCH_SIZE = 10
@@ -93,8 +98,26 @@ module Reweight
       articles
     end
 
-    def select_top(articles, count: 3)
-      articles.sort_by { |a| -a.progress_score }.first(count)
+    def select_top(articles, count: 10)
+      max_per_category = count / 2
+      sorted = articles.sort_by { |a| -a.progress_score }
+      selected = []
+      category_counts = Hash.new(0)
+
+      sorted.each do |article|
+        break if selected.size >= count
+
+        cat = article.category.to_s.strip
+        if cat != "" && category_counts[cat] >= max_per_category
+          puts "  [dedup] skipped (#{cat}): #{article.title}"
+          next
+        end
+
+        selected << article
+        category_counts[cat] += 1 if cat != ""
+      end
+
+      selected
     end
 
     private
@@ -164,6 +187,7 @@ module Reweight
         batch[idx].progress_score = r["score"].to_i
         batch[idx].progress_reason = r["reason"].to_s
         batch[idx].ai_summary = r["summary"].to_s if r["summary"].to_s != ""
+        batch[idx].category = r["category"].to_s if r["category"].to_s != ""
       end
     rescue => e
       warn "  [ERROR] Batch scoring failed: #{e.message}"
