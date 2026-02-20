@@ -18,8 +18,8 @@ if articles.empty?
   exit 1
 end
 
-# Step 2: 元気がでる記事判定（スクリーニング → バッチスコアリング+要約）
-puts "## Step 2: 元気がでる記事判定 + 要約"
+# Step 2: おだやかニュース判定（スクリーニング → バッチスコアリング+要約）
+puts "## Step 2: おだやかニュース判定 + 要約"
 judge = Reweight::ProgressJudge.new
 judge.judge_all(articles)
 top_articles = judge.select_top(articles, count: 10)

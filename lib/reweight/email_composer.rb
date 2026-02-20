@@ -15,7 +15,7 @@ module Reweight
       lines = []
       lines << "# Reweight - #{@date.strftime('%Y-%m-%d')}"
       lines << ""
-      lines << "今日の静かなニュース#{@articles.size}選"
+      lines << "今日のおだやかニュース#{@articles.size}選"
       lines << ""
 
       @articles.each_with_index do |article, i|
