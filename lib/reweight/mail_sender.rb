@@ -23,7 +23,7 @@ module Reweight
 
       markdown = File.read(path)
       html = markdown_to_html(markdown)
-      subject = "#{date.month}/#{date.day}のニュース"
+      subject = "#{date.month}月#{date.day}日のおだやかニュース"
 
       campaign_id = create_campaign(subject)
       return unless campaign_id
@@ -136,11 +136,13 @@ module Reweight
 
         case line
         when /\A# (.+)/
-          html_parts << %(<h1 style="font-size:24px;color:#333;margin:0 0 8px;">#{escape_html(Regexp.last_match(1))}</h1>)
+          html_parts << %(<h1 style="font-size:24px;color:#333;margin:0 0 8px;text-align:center;">#{escape_html(Regexp.last_match(1))}</h1>)
         when /\A## (.+)/
           html_parts << %(<h2 style="font-size:18px;color:#222;margin:0 0 6px;">#{escape_html(Regexp.last_match(1))}</h2>)
         when /\A---\s*\z/
           html_parts << %(<hr style="border:none;border-top:1px solid #e0e0e0;margin:24px 0;">)
+        when /\A<!-- center -->(.+)/
+          html_parts << %(<p style="font-size:15px;line-height:1.7;color:#999;margin:0 0 20px;text-align:center;">#{escape_html(Regexp.last_match(1))}</p>)
         when /\A\s*\z/
           # skip blank lines
         else

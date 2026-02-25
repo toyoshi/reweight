@@ -13,9 +13,9 @@ module Reweight
 
     def compose
       lines = []
-      lines << "# Reweight - #{@date.strftime('%Y-%m-%d')}"
+      lines << "# 今日のおだやかニュース"
       lines << ""
-      lines << "今日のおだやかニュース#{@articles.size}選"
+      lines << "<!-- center -->#{@date.strftime('%Y年%m月%d日')}"
       lines << ""
 
       @articles.each_with_index do |article, i|
@@ -31,7 +31,7 @@ module Reweight
 
       lines << "---"
       lines << ""
-      lines << "*Reweight — 情報重み付けの再設計*"
+      lines << "*Reweight — おだやかニュースは情報重み付けを再設計します*"
       lines << ""
 
       lines.join("\n")
